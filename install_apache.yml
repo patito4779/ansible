@@ -4,14 +4,13 @@
   become: true
   tasks:
 
-  - name: install apache2 package
-    apt: 
-      name: apache2
+  - name: install apache and php package for Ubuntu , Fedora
+    package: 
+      name:
+        - "{{apache_package}}"
+        - "{{php_package}}"
       state: latest
-    when: ansible_distribution in ["Debian", "Ubuntu", "Fedora"]
+      update_cache: yes
+   # when: ansible_distribution in ["Debian", "Ubuntu", "Fedora"]
 
-  - name: add php support for apache
-    apt: 
-      name: libapache2-mod-php
-      state: latest
-    when: ansible_distribution == "Ubuntu"
+  
