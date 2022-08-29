@@ -1,8 +1,44 @@
 # Notes and some command lines from ansible.
-To install a linux package via ansible, for exam√ple apache2:
+-- To create a more secured and standard ssh-key for specific purposes use the command below:
+ssh-keygen -t ed25519 -C "server3 default" where server3 default is the ssh key ID.
+-- To copy an ssh-key(public key) to another server from one server, use:
+ssh-copy-id -i ~/.ssh/id_ed25519.pub username@server-ip-address
+# Note that to work with same ssh keys across multiple servers which you administer, then we need to be using same usernames on those servers.
+# Else then on your ansible inventory file, you need to add each username and the servers ip address.
+
+-- To setup an alias in linux for example an ssh alias so you do not always have to enter an ssh paraphrase, use:
+alias ssha='eval $(ssh-agent) && ssh-add' 
+then run 'ssha' then do ps aux | grep <the ssh agent ID>
+
+--To clone a git repository, use the command below:
+git clone <the ssh link to the git repository you want to clone>
+git config --global user.name "your full name e.g Patrick Okwe"
+git config --global user.email "your email address"
+cat ~/.gitconfig ( To see your configurations as set up above )
+-- To be able to connect to your github account with your linux ssh-key, add your key to your github account.
+--To run a ping on all your servers in your inventory file:
+1. Create a file called inventory using the command nano inventory
+2. Add all the ip addresses of the servers to be managed there( add the client username if needed)
+3. ansible all --key-file ~/.ssh/<ssh-id of your ansible ssh-key> -i inventory -m ping
+4. Create a file and call it ansible.cfg and Add 3. above to it. Then just run below to check if all servers are connected or can be reached.
+5. ansible all -m ping
+
+--To do some operations with the apt package on ubuntu linux server the run the following commands below.
+ansible all -m apt -a update_cache=true --become --ask-become-pass 
+ansible all -m apt -a name=tmux --become --ask-become-pass ( To install the tmux package )
+ansible all -m apt -a "upgrade=dist" --become --ask-become-pass 
+ 
+
+--To install a linux package via ansible, for example apache2:
 1. Create a .yml file, as seen in install_apache.yml file and run the command in 2. below
 2. ansible-playbook -become --ask-become-pass install_apache.yml
 3. Note that the name of the package should be correct else the package install will fail.
 # Note that inside the playbook yml file, the state line under the package name ensures that the latest version of the packages in the playbook are installed everytime the file is ran.
 # To remove the packages in the playbook, change the state: to absent and that removes all packages with the absent state.
-
+--To connect to an amazon ec3 instance use:
+1. ssh -i <the location of your ssh-key.pem file given by amazon e.g ~/.ssh/my_key_pair.pem> ec2-user@public-ip-address-of-ec2-instance.
+# Note to ssh into your ec2-instance from a linux machine run  chmod 400 /.ssh/my_key_pair.pem
+
+-- To gather information about a specific server (e.g a server with a different distro) run below
+ansible all -m gather_facts --limit <ip-address of the server>
+# Information that you collect with the above caommand can be used to edit your 'when' statements in your playbook to install programs based on variables such as: os distribution, version, etc
