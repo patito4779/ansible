@@ -1,0 +1,8 @@
+# Notes and some command lines from ansible.
+To install a linux package via ansible, for exam√ple apache2:
+1. Create a .yml file, as seen in install_apache.yml file and run the command in 2. below
+2. ansible-playbook -become --ask-become-pass install_apache.yml
+3. Note that the name of the package should be correct else the package install will fail.
+# Note that inside the playbook yml file, the state line under the package name ensures that the latest version of the packages in the playbook are installed everytime the file is ran.
+# To remove the packages in the playbook, change the state: to absent and that removes all packages with the absent state.
+
