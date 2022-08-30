@@ -11,7 +11,7 @@ alias ssha='eval $(ssh-agent) && ssh-add'
 then run 'ssha' then do ps aux | grep <the ssh agent ID>
 
 --To clone a git repository, use the command below:
-git clone <the ssh link to the git repository you want to clone>
+git clone <path(ignore this argument if you want to clone to your current directory)> <the ssh link to the git repository you want to clone>
 git config --global user.name "your full name e.g Patrick Okwe"
 git config --global user.email "your email address"
 cat ~/.gitconfig ( To see your configurations as set up above )
