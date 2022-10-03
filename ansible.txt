@@ -1,15 +1,26 @@
 # config network in centos  nano /etc/sysconfig/network-scripts/ifcfg-enp0s3  set onboot=yes
 # Notes and some command lines from ansible.
+-- To connect to another server successfully via ssh without having to enter passwords, but with just a paraphrase:
+1. first ssh into all servers and accept fingerprints.
+2. If that does not work, then make sure that there are no existing ssh keys, else wipe keys already there and create new ones.
+3. Make sure that when creating and saving the ansible ssh-key to specify the path e.g /home/patrick/.ssh/ansible .
 -- To create a more secured and standard ssh-key for specific purposes use the command below:
 ssh-keygen -t ed25519 -C "server3 default" where server3 default is the ssh key ID.
 -- To copy an ssh-key(public key) to another server from one server, use:
 ssh-copy-id -i ~/.ssh/id_ed25519.pub username@server-ip-address
 # Note that to work with same ssh keys across multiple servers which you administer, then we need to be using same usernames on those servers.
 # Else then on your ansible inventory file, you need to add each username and the servers ip address.
+# Make sure that the ansible keys you create do not have ssh paraphrases.
+# To connect with an ansible key created, just specify the path to the key using the command below:
+ssh -i ~/.ssh/ansible <ip address>
 
--- To setup an alias in linux for example an ssh alias so you do not always have to enter an ssh paraphrase, use:
-alias ssha='eval $(ssh-agent) && ssh-add' 
-then run 'ssha' then do ps aux | grep <the ssh agent ID>
+-- To setup an alias in linux for example an ssh alias so you do not always have to enter the ssh paraphrase everytime, but just enter it once and use it for the whole shell session:
+1. sudo nano ~/.bashrc
+2. scroll down and enter the lines below somewhere in the file:
+# ssh agent
+alias ssha='eval $(ssh-agent) ssh-add' 
+3. then just run 'ssha' once and your paraphrase will be saved for the whole session. (To see the ssh-agent process id; do ps aux | grep <the ssh agent ID>)
+
 
 --To clone a git repository, use the command below:
 git clone <path(ignore this argument if you want to clone to your current directory)> <the ssh link to the git repository you want to clone>
