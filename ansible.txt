@@ -1,3 +1,4 @@
+# config network in centos  nano /etc/sysconfig/network-scripts/ifcfg-enp0s3  set onboot=yes
 # Notes and some command lines from ansible.
 -- To create a more secured and standard ssh-key for specific purposes use the command below:
 ssh-keygen -t ed25519 -C "server3 default" where server3 default is the ssh key ID.
