@@ -54,3 +54,33 @@ ansible all -m apt -a "upgrade=dist" --become --ask-become-pass
 -- To gather information about a specific server (e.g a server with a different distro) run below
 ansible all -m gather_facts --limit <ip-address of the server>
 # Information that you collect with the above caommand can be used to edit your 'when' statements in your playbook to install programs based on variables such as: os distribution, version, etc
+
+
+
+
+
+
+
+
+
+
+# This section is used to troubleshoot ssh connection issues(ssh connection is asking for password instead of ssh-key passphrase (centos and ubuntu)
+
+1. sudo nano /etc/ssh/sshd_config
+2. Set PasswordAuthentication yes
+3. Set ChallengeResponseAuthentication no
+4. Set PermitRootLogin no (Before doing this, first make sure you add your user to list of sudo users first, in centos use usermod -aG wheel <username>)
+5. Set PubkeyAuthentication yes
+6. GSSAPIAuthentication yes
+   GSSAPICleanupCredentials no
+7. UsePAM yes
+8. save file
+9. systemctl restart sshd
+10. ls -ld
+11. chmod 0700 /home/[your-username]
+12. ls -ld
+13. chmod 0700 /home/your_home/.ssh
+14. ls -ld authorized_keys
+15. chmod 0600 /home/[username]/.ssh/authorized_keys
+
+Finished!!!
