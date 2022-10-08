@@ -14,9 +14,37 @@
   - name: install updates (CentOS)
     tags:  centOS, update
     yum:
-      upgrade: dist
+      state: latest
       update_cache: yes
     when: ansible_distribution == "CentOS"
+
+# For this line below to work then you have to create a file named default_site.html somewhere and execute this line to copy files to your servers.
+   - name: copy default html file for site
+     tags: apache, apache2, httpd
+     copy:
+        src: default_site.html
+        dest: /var/www/html/index.html
+        owner: root
+        group: root
+        mode: 0664
+# we need to add our own workstation to the inventory list.   
+- hosts: mainserver, workstations
+  become: true
+  tasks:
+  
+  - name: install unzip
+    package:
+      name: unzip
+  # This line allows download of terraform from the terraform download link for linux, unzip and store it in /usr/local/bin where app binaries are stored
+  - name: install terraform
+    unarchive:
+      src: https://releases.hashicorp.com/terraform/1.3.2/terraform_1.3.2_linux_amd64.zip
+      dest: /usr/local/bin
+      remote_src: yes
+      mode:0755
+      owner: root
+      group: root
+  
 
 - hosts: web_server
   become: true
