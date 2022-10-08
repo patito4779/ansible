@@ -4,3 +4,6 @@ server1@192.168.0.246
 [file_server] 
 server20@192.168.0.61 
 pokwe@18.196.108.239
+
+[mainserver, workstations]
+192.168.0.150
