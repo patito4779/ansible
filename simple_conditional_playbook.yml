@@ -3,6 +3,10 @@
 # e.g run > ansible all -m gather_facts | grep "ansible_distribution"   allows you to use the ansible_distribution condition.
 # you can also use version, vm info and so many other parameters.
 # the update_cache line is used to update the linux operating system, similar to the famous <sudo apt update> command
+# the apache server installed on a server can be accessed simply by opening the server ip address in a browser.
+# To make the apache server installed on centOS reachable, run the following commands below.
+# sudo systemctl start httpd
+# sudo firewall-cmd --add-port=80/tcp
 ---
 - hosts: all
   become: true
