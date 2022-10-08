@@ -1,0 +1,47 @@
+# This is a simple script used to add conditionals to our playbook 
+# using the command > ansible all -m gather_facts   we can get a list of conditional statements which we can use on our playbooks
+# e.g run > ansible all -m gather_facts | grep "ansible_distribution"   allows you to use the ansible_distribution condition.
+# you can also use version, vm info and so many other parameters.
+# the update_cache line is used to update the linux operating system, similar to the famous <sudo apt update> command
+---
+- hosts: all
+  become: true
+  tasks:
+  
+  - name: update repository index
+    apt:
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu"
+  
+  - name: install apache2 package
+    apt:
+      name: apache2
+      state: latest
+    when: ansible_distribution == "Ubuntu"
+	
+  - name: add php support for apache
+    apt:
+      name: libapache2-mod-php
+      state: latest
+    when: ansible_distribution == "Ubuntu"
+
+# These line below targets "CentOS" operating system.
+
+  - name: update repository index
+    yum:
+      update_cache: yes
+    when: ansible_distribution == "CentOS"
+  
+  - name: install apache2 package
+    yum:
+      name: httpd
+      state: latest
+    when: ansible_distribution == "CentOS"
+	
+  - name: add php support for apache
+    yum:
+      name: php
+      state: latest
+    when: ansible_distribution == "CentOS"
+  
+  
