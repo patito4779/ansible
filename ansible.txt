@@ -8,6 +8,10 @@
 ssh-keygen -t ed25519 -C "server3 default" where server3 default is the ssh key ID.
 -- To copy an ssh-key(public key) to another server from one server, use:
 ssh-copy-id -i ~/.ssh/id_ed25519.pub username@server-ip-address
+
+# You can also copy your ssh-key to your mainserver or worksstation for later installations of application binaries, as seen in the installation of terraform in the 
+  site.yml playbook in this repo.
+
 # Note that to work with same ssh keys across multiple servers which you administer, then we need to be using same usernames on those servers.
 # Else then on your ansible inventory file, you need to add each username and the servers ip address.
 # Make sure that the ansible keys you create do not have ssh paraphrases.
