@@ -10,6 +10,13 @@
       upgrade: dist
       update_cache: yes
     when: ansible_distribution == "Ubuntu"
+    
+  - name: install updates (CentOS)
+    tags:  centOS, update
+    yum:
+      upgrade: dist
+      update_cache: yes
+    when: ansible_distribution == "CentOS"
 
 - hosts: web_server
   become: true
