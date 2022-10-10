@@ -28,7 +28,7 @@
         group: root
         mode: 0664
 # we need to add our own workstation to the inventory list.   
-- hosts: mainserver, workstations
+- hosts: mainserver
   become: true
   tasks:
   
