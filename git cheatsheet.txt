@@ -1,0 +1,83 @@
+Git and GitHub																									
+A repository is also a folder in Github where we put all our projects and folders																									
+Git is the tool that track the tools in your changes over time																									
+																									
+To upload your local repo to github, first create a new repo on github, then initialize your local repo with git init and then add the remote repo url using >git remote add origin + copy the http/ssh link of the repo if you																									
+already have an ssh key on your computer, then pull, add all the files in the folder using git add and commit then push or publish																									
+																									
+use an ssh url to clone a repository to your local computer.																									
+You can create an ssh key with the command > ssh-keygen -t ed25519 -C "your email address" save key and then run >eval $(ssh-agent -s) followed by ssh-add + /location of the key. Then add the ssh key to your github.																									
+																									
+																									
+use "git config --global user.email "pa@example.com" to log to add your name(by replacing email with username) and email to your future git commits																									
+																									
+use git config --global core.editor "nano" to set nano as your default editor for git works in vscode terminal																									
+																									
+Git Commands: 																									
+Clone: This is used to bring a repository on GitHub to your local machine e.g "git clone https://github.com/patito4779/dev-repo.git"																									
+Add: Track files and changes in Git e.g "git add ." (we can use the git add -p flag to review changes made before committing them)																									
+Commit: Save chaanges made to your code in Git  e.g "git commit -m "Added index.html" -m "some description"" will save the updates made to the file and add some descriptions.(git commit -a -m, can be used to commit all changes made at once																									
+Push: Upload git commits changes from a remote repository like Github e.g "git push -u origin master" will simply just push the saved file to the github host server																									
+Pull: Download changes from a repo to your local machine and it is the opposite of push																									
+To cache your github credentials for 15 mins and avoid unnecessary login while coding, run "git config --global credential.helper cache"																									
+																									
+HTTP allows only read-only access to a remote repository while HTTPS allows both read and write (i.e push and pull) by logging in with authenticated credentials.																									
+When working with a remote repository, use the command "git remote show origin" to the details of the repo and see if any commits have been made since the last pull. Use git fetch and git status to always see differences in remote and local branches before merging																									
+The basic steps to follow when working with a remote repository is to do a git pull > git remote show origin(to see branches added or review changes) > git checkout + <new branch name> to have a local copy of this branch.																									
+However "git remote update" will also fetch all the remote branches that have been created. 																									
+When working on a remote server, if a git push returns an error, then do a git pull, then do git log --graph --oneline --all to see the branches and then do a 3 way merge by first checking with git log -p origin/master																									
+In order to merge a local branch to the main/master remote branch, we use the command git push -u origin <name of the branch>																									
+Method1 - We can use the git rebase main/master to move a current branch on top of the master branch without any errors (i.e doing a succesful 3 way merge), Then checkout of the current branch to the master branch and do a git merge <name of branch> 																									
+To delete the remote branch, we use git push --delete origin <name of the branch> and as we know git branch -d <name of branch> to delete the local branch		
+																							
+Method2 - Do git rebase origin/master 																									
+																									
+																									
+log: run the command git log to see the changes and people responsible for making changes to a file (git log -p shows us added and removed lines in a code)																									
+deleting and renaming files with git: use the git rm and git mv old_name new_name to delete and rename files respectively. git mv can also be used to move files from one directory to another																									
+the command dir-Force in powershell can be used to show all files and hidden files in a folder on windows																									
+We can use the command line echo .DS_STORE > .gitignore to create and contain a list of files or filenames patterns for Git to skip for the currrent repo																									
+We can use "git checkout" to modify a file back to the latest commit.																									
+We can use the "git reset HEAD <name of file>" to reset the latest changes to be committed 																									
+We can make amendments to files in a directory that were probably not committed using the "git commit -a --amend" *Warning, use with caution to add files that were apparently not initially added- Dont't use this for commits that have already been made public																									
+To do a rollback from the most recent commit that was made, then we can do a "git revert HEAD" command,  then add a reason for the rollback. In general this does a inverse commit which can be seen using "git log -p -2"																									
+After using "git log -2" to get the list of commits ID made to a files, we can use "git show <commit ID>" to get more info of the particular commit then we can use  "git revert <commit ID>" to do a revert of that instance.																									
+For running GitHub in vscode, always start vscode as admin and when cloning a Github repository always use the http path for easy push of commits back to the github host page																									
+Use "git init" to initialize git repository on a local folder 																									
+Use "git remote add origin" to initialize the remote location and then push it with the push command above to remote location Github																									
+																									
+Git  Branching:																									
+use "git branch" to check the current branch of a code on github																									
+																									
+use "git checkout" to switch between branches on github and to creat a new branch and automatically switch to it we use "git checkout -b feature-readme-instructions"	
+																								
+use "git add + name of main branch " to add the changes to the new branch and use the usual commit command to save changes that have been made.	
+																								
+"git diff + name of branch" can be used to see the differences in the main and new branches in the terminal			
+																						
+When in one branch use "git merge + name of branch" to merge the other branch to the current branch		
+																							
+To delete a branch just use "git branch -d + name of the branch"											
+														
+Always do a "git status" when you create a new branch and also a simple git diff can also do a check and compare between your main and new branches.																									
+"git commit -am + name of file" can work for saving only modified files 	
+																								
+Note that when we when we switch branches with git checkout, the working directory and commit history will be changed to reflect the snapshot of the project in the branch. For example if you create a file in another branch, it won't show up in the working directory and commit history of the master branch.																									
+we can use the "git reset HEAD~1" to undo a commit and just "git reset" to undo an added modification																									
+"git log" can show a log of the number of commits that have been made to the files and also and also some id which can be used to git reset to that instance in a code.																									
+																									
+So In general for github, we first work on modified files in our working tree, when ready we stage them by addidng them using git add and then finally we commit our changes sitting in our own staging area with git commit																									
+																									
+We can fork a repositrory of someone on github.com to our own repo,  clone our repo to our local computer make some changes by creating a branch and then merge to the remote using git push -u origin <name of the branch>																									
+																									
+Solve issue with unable to upload code from vscode to github by running "rm .git/index.lock" in the root directory 																									
+																									
+To Comment out multiple lines of python code in vscode use CTRL + #  and the same to undo																									
+																									
+To replace occurences of a string in python on vscode, use CTRL + F to find and then CTRL + R to replace with your choice string																									
+																									
+use python -m pip install --upgrade --force-reinstall python-keycloak to reinstall keycloak when having issues with successful running of the codes and also check a code for irrelevant modules imported which might be responsible for the errors																									
+																									
+To get access to google creds and to be able to read worksheet from a python file, we need to make the worksheet available to our team shared folder and also signup to google cloud which is available at cloud.google.com																									
+																									
+When doing DevOps, Always take a look at the Documentation code of the software which you are Engineering																									
