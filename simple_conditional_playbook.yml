@@ -9,7 +9,7 @@
 # sudo firewall-cmd --add-port=80/tcp
 ---
 - hosts: localhost
-  become: true
+  become: false
   tasks:
   
   - name: update repository index
