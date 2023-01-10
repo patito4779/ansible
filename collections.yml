@@ -1,3 +1,4 @@
+---
 collections:
   - name: awx.awx
   - name: nutanix-ncp-1.4.0
